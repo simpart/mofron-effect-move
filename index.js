@@ -20,7 +20,7 @@ module.exports = class extends mofron.class.Effect {
 	    this.shortForm("type", "toValue");
             /* init config */
             this.confmng().add("type",      { type: "string", select: ["top", "left", "bottom", "right"] });
-	    this.confmng().add("fromValue", { type: "size", init: "0rem" });
+	    this.confmng().add("fromValue", { type: "size" });
 	    this.confmng().add("toValue",   { type: "size" });
             
             this.speed(1000);
@@ -29,7 +29,8 @@ module.exports = class extends mofron.class.Effect {
                     try {
                         eff.transition(eff.type());
                         let tp = {};
-                        tp[eff.type()] = this.fromValue();
+			let fval = this.fromValue();
+                        tp[eff.type()] = (null === fval) ? undefined : fval;
                         eff.component().style(tp);
                         eff.component().style(
                             { "position" : "relative" },
